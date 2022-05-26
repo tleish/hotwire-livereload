@@ -1,29 +1,36 @@
 (() => {
-  if(window.hotwireLivereloadObserver) { window.hotwireLivereloadObserver.disconnect(); }
+  if(window.liveReloadFunction){
+    return;
+  }
 
-  window.hotwireLivereloadObserver = new MutationObserver((mutations) => {
-    for (const mutation of mutations) {
-      for (const addedNode of mutation.addedNodes) {
-        if (addedNode.name === 'hotwire-livereload') {
-          hotwireLivereload(addedNode);
-        }
+  var debounce = function debounce(callback, wait) {
+    var timeoutId = null;
+    return function () {
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
       }
-    }
-  });
-  window.hotwireLivereloadObserver.observe(document.head, { childList: true });
 
-  const hotwireLivereload = (element) => {
-    if (element.dataset.reloaded || element.content.length === 0) { return;}
+      window.clearTimeout(timeoutId);
+      timeoutId = window.setTimeout(function () {
+        callback.apply(null, args);
+      }, wait);
+    };
+  };
 
-    element.dataset.reloaded = true;
+  window.liveReloadFunction = debounce(function(event) {
+    let element = event.srcElement.querySelector('template').content.getElementById('hotwire-livereload')
+    if (!element) { return; }
+
     const onErrorPage = document.title === 'Action Controller: Exception caught';
 
     if (onErrorPage || element.dataset.forceReload === 'true') {
-      console.log('[Hotwire::Livereload] Files changed. Force reloading...', JSON.parse(element.content));
+      console.log('[Hotwire::Livereload] Files changed. Force reloading...', JSON.parse(element.dataset.changed));
       document.location.reload();
     } else {
-      console.log('[Hotwire::Livereload] Files changed. Reloading...', JSON.parse(element.content));
+      console.log('[Hotwire::Livereload] Files changed. Reloading...', JSON.parse(element.dataset.changed));
       Turbo.visit(window.location.href, { action: 'replace' });
     }
-  };
+  }, 300);
+
+  document.addEventListener('turbo:before-stream-render', window.liveReloadFunction);
 })();

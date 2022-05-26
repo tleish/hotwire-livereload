@@ -1,1 +1,4 @@
-<%= tag.meta(name: 'hotwire-livereload', content: changed.to_json, data: { force_reload: force_reload || nil }) %>
+<%= tag.div(id: 'hotwire-livereload', data: {
+  changed: changed.to_json,
+  force_reload: force_reload || nil
+}) %>
