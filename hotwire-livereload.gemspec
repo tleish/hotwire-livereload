@@ -12,5 +12,6 @@ Gem::Specification.new do |spec|
   spec.files = Dir["{app,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
   spec.add_dependency "rails", ">= 6.0.0"
+  spec.add_dependency "turbo-rails", ">= 1.0.0"
   spec.add_dependency "listen", ">= 3.0.0"
 end

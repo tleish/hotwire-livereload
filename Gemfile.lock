@@ -4,6 +4,7 @@ PATH
     hotwire-livereload (1.1.0)
       listen (>= 3.0.0)
       rails (>= 6.0.0)
+      turbo-rails (>= 1.0.0)
 
 GEM
   remote: https://rubygems.org/
@@ -114,6 +115,8 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.13.0-arm64-darwin)
       racc (~> 1.4)
+    nokogiri (1.13.0-x86_64-darwin)
+      racc (~> 1.4)
     racc (1.6.0)
     rack (2.2.3)
     rack-test (1.1.0)
@@ -151,6 +154,10 @@ GEM
     strscan (3.0.1)
     thor (1.2.1)
     timeout (0.2.0)
+    turbo-rails (1.1.1)
+      actionpack (>= 6.0.0)
+      activejob (>= 6.0.0)
+      railties (>= 6.0.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     websocket-driver (0.7.5)
@@ -161,6 +168,7 @@ GEM
 PLATFORMS
   arm64-darwin-20
   arm64-darwin-21
+  x86_64-darwin-20
 
 DEPENDENCIES
   hotwire-livereload!

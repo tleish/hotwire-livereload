@@ -60,10 +60,11 @@ module Hotwire
                 path.match(%r{#{force_reload_paths}})
               end
 
-              ActionCable.server.broadcast("hotwire-reload", {
-                changed: changed,
-                force_reload: force_reload
-              })
+              Turbo::StreamsChannel.broadcast_replace_to('hotwire-livereload',
+                targets: 'meta[name=hotwire-livereload]',
+                partial: 'hotwire/livereload/reload',
+                locals: {changed: changed, force_reload: force_reload}
+              )
             end
           end
           @listener.start

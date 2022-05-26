@@ -28,6 +28,17 @@ Folders listened by default:
 
 ## Configuration
 
+Add the helper within the <head> tag in your custom layout, *after* the `<%= action_cable_meta_tag %>`.  Note: it only renders `if Rails.env.development?`
+
+```diff
+<head>
+  ...
+  <%= action_cable_meta_tag %>
++ <%= hotwire_livereload_tags %>
+  ...
+</head>
+```
+
 You can watch for changes in additional folders by adding them to `listen_paths`:
 ```ruby
 # config/environments/development.rb
@@ -76,13 +87,6 @@ bin/rails livereload:enable
 ```
 
 No server restart is required. Disabling is managed by `tmp/livereload-disabled.txt` file.
-
-## Development
-
-To get started:
-
-1. Run `npm install`
-2. Run `npm run watch`
 
 ## License
 

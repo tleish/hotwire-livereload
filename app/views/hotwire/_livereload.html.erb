@@ -1,0 +1,5 @@
+<% if Rails.env.development? %>
+  <%= tag.meta(name: 'hotwire-livereload') %>
+  <%= turbo_stream_from('hotwire-livereload') %>
+  <%= javascript_include_tag('hotwire-livereload', defer: true, data: {turbo_track: 'reload'}) %>
+<% end %>
